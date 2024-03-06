@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%-- 	<c:if test="${param.color== 1}">
+	<%-- 	<c:if test="${param.color== 1}">
 		<h1>빨강</h1>
 	</c:if>
 
