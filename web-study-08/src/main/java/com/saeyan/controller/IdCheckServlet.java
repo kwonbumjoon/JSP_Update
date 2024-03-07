@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.saeyan.dto.MemberDAO;
+import com.saeyan.dao.MemberDAO;
 
 @WebServlet("/idCheck.do")
 public class IdCheckServlet extends HttpServlet {
@@ -30,8 +30,6 @@ public class IdCheckServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doGet(request, response);
 	}
-
 }
