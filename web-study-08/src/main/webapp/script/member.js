@@ -29,7 +29,6 @@ function idCheck() {
 	let url = "idCheck.do?userid=" + document.frm.userid.value;
 	window.open(url, "_blank_1", "width=450, height=200");
 	
-	return true;
 }
 
 function idok() {

@@ -17,7 +17,6 @@ public class MemberDAO {
 	private ResultSet rs = null;
 	
 	private MemberDAO() {
-
 	}
 
 	public static MemberDAO getInstance() {
@@ -73,7 +72,8 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
+	// 회원가입
 	public int insertMember(MemberVO vo) {
 		int result = -1;
 		
@@ -108,11 +108,10 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return result;
 	}
-
+	
+	// 가입 회원 체크
 	public int userCheck(String userid, String pwd) {
 		int result = -1;
 		
@@ -151,6 +150,83 @@ public class MemberDAO {
 			}
 		}
 		
+		return result;
+	}
+	
+	// 로그인 한 회원정보 가져오기
+	public MemberVO getMember(String userid) {
+		String sql = "select * from member where userid=?";
+		MemberVO vo = new MemberVO();
+		
+		try {
+			con = getConnection();				// 연결
+			pstmt = con.prepareStatement(sql);	// 전송
+			pstmt.setString(1, userid);			// 맵핑
+			rs = pstmt.executeQuery();			// 실행
+			
+			if(rs.next()) {
+				String name = rs.getString("name");
+				
+				vo.setName(name);
+				vo.setUserid(rs.getString("userid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setEmail(rs.getString("email"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setAdmin(rs.getInt("admin"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+
+	public int updateMember(MemberVO vo) {
+		int result = -1;
+		
+		String sql = "update member set name=?, pwd=?, email=?, "
+				+ "phone=?, admin=? where userid=?";
+		
+		try {
+			// 1. 연결
+			con = getConnection();
+
+			// 2. sql 구문 전송
+			pstmt = con.prepareStatement(sql);
+			
+			// 3. 맵핑(연결)
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getUserid());
+			pstmt.setString(3, vo.getPwd());
+			pstmt.setString(4, vo.getEmail());
+			pstmt.setInt(5, vo.getAdmin());
+			pstmt.setString(6, vo.getUserid());
+			
+			// 4. 구문 실행
+			result = pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return result;
 	}
 }

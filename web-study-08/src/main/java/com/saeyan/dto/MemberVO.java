@@ -19,10 +19,10 @@ create table member(
 @Getter
 @ToString
 public class MemberVO {
-	private String name;
-	private String userid;
-	private String pwd;
-	private String email;
-	private String phone;
-	private int admin;
+	String name;
+	String userid;
+	String pwd;
+	String email;
+	String phone;
+	int admin;
 }

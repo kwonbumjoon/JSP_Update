@@ -12,14 +12,14 @@
 	<h2>아이디 중복 체크</h2>
 	<form action="idCheck.do" method="get" name="frm">
 		아이디 <input type="text" name="userid" value="${userid}"> 
-		<input type="submit" value="중복 체크"> 
+			<input type="submit" value="중복 체크"> 
 		
 		<br>
 		<c:if test="${result == 1}">
 			<script type="text/javascript">
 				opener.document.frm.userid.value="";
 			</script>
-			<div style="color:red">${userid}는 이미 사용중인 아이디 입니다.</div>
+			<div style="color:red">${userid}는 이미 사용중인 아이디입니다.</div>
 		</c:if>
 
 		<c:if test="${result == -1}">
