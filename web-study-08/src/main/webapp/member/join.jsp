@@ -40,17 +40,19 @@
 			</tr>
 			<tr>
 				<td>등급</td>
-				<td><input type="radio" name="admin" value="0"
-					checked="checked"> 일반회원 <input type="radio" name="admin" value="1"> 관리자</td>
+				<td><input type="radio" name="admin" value="0" checked="checked"> 일반회원 
+					<input type="radio" name="admin" value="1"> 관리자
+				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="확인" onclick="return joinCheck()">
+				<td colspan="2" align="center">
+				<input type="submit" value="확인" onclick="return joinCheck()">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					<input type="reset" value="취소">
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">${message }</td>
+				<td colspan="2">${message}</td>
 			</tr>
 		</table>
 	</form>

@@ -50,10 +50,10 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = 1;	// 중복된 ID
+				result = 1;	// 중복된 ID(사용 불가)
 			}
 			else {
-				result = -1;// 중복되지 않은 ID
+				result = -1;// 중복되지 않은 ID(사용 가능)
 			}
 		}
 		catch(Exception e) {
