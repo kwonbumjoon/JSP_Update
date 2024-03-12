@@ -16,7 +16,7 @@ public class ProductDAO {
 
 	private ProductDAO() {}
 
-	public ProductDAO getInstance() {
+	public static ProductDAO getInstance() {
 		return instance;
 	}
 
@@ -49,23 +49,69 @@ public class ProductDAO {
 		return list;
 	}
 
-	void insertProduct(ProductVO vo) {
-
+	public void insertProduct(ProductVO vo) {
+		String sql = "insert into product values(product_seq.nextval, ?,?,?,?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getPrice());
+			pstmt.setString(3, vo.getPictureUrl());
+			pstmt.setString(4, vo.getDescription());
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt);
+		}
+		
 	}
 
-	int confirmID(String userid) {
+	public int confirmID(String userid) {
 		return 0;
 	}
 
-	int userCheck(String userid, String pwd) {
+	public int userCheck(String userid, String pwd) {
 		return 0;
 	}
 
-	ProductVO selectProductByCode(String code) {
-		return null;
+	public ProductVO selectProductByCode(int code) {
+		
+		String sql = "select * from product where code = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductVO vo = new ProductVO();
+		
+		try {
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setCode(rs.getInt("code"));
+				vo.setName(rs.getNString("name"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setPictureUrl(rs.getString("pictureurl"));
+				vo.setDescription(rs.getString("description"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt, rs);
+		}
+		
+		return vo;
 	}
 
-	void updateProduct(ProductVO vo) {
+	public void updateProduct(ProductVO vo) {
 
 	}
 }
