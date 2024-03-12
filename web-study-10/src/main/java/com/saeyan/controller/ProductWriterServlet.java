@@ -20,7 +20,6 @@ public class ProductWriterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("product/productWriter.jsp").forward(request, response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,11 +37,7 @@ public class ProductWriterServlet extends HttpServlet {
 		int sizeLimit = 20*1024*1024;	// 최대 2MB전송
 		
 		MultipartRequest multi = new MultipartRequest(
-				request,
-				path,
-				sizeLimit,
-				encType,
-				new DefaultFileRenamePolicy());
+				request, path, sizeLimit, encType, new DefaultFileRenamePolicy());
 		String name = multi.getParameter("name");
 		int price = Integer.parseInt(multi.getParameter("price"));
 		String description = multi.getParameter("description");

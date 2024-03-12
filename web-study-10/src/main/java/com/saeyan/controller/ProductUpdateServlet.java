@@ -2,12 +2,15 @@ package com.saeyan.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.saeyan.dao.ProductDAO;
 import com.saeyan.dto.ProductVO;
 
@@ -28,7 +31,42 @@ public class ProductUpdateServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		
+		ServletContext context = getServletContext();
+		String path = context.getRealPath("upload");
+		String encType = "utf-8";
+		
+		int sizeLimit = 20*1024*1024;
+		
+		MultipartRequest multi = new MultipartRequest(
+				request, path, sizeLimit, encType, new DefaultFileRenamePolicy());
+				
+		String code = multi.getParameter("code");
+		String name = multi.getParameter("name");
+		String description = multi.getParameter("description");
+		String price = multi.getParameter("price");
+		String pictureUrl = multi.getFilesystemName("pictureUrl");
+		
+		// 기존 이미지 그대로 사용
+		if(pictureUrl == null) {
+			pictureUrl = multi.getParameter("nonmakeImg");
+		}
+		
+		ProductVO vo = new ProductVO();
+		
+		vo.setCode(Integer.parseInt(code));
+		vo.setName(name);
+		vo.setPrice(Integer.parseInt(price));
+		vo.setDescription(description);
+		vo.setPictureUrl(pictureUrl);
+		
+//		ProductDAO pDao = ProductDAO.getInstance();
+//		pDao.updateProduct(vo);
+		// 위랑 같은 내용
+		ProductDAO.getInstance().updateProduct(vo);
+		
+		response.sendRedirect("productList.do");
 	}
 
 }

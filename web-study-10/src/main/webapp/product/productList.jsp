@@ -14,8 +14,9 @@
 		<h1>상품 리스트 - 관리자 페이지</h1>
 		<table class="list">
 			<tr>
-				<td colspan="5" style="border: white; text-align: right;"><a
-					href="productWrite.do">상품등록</a></td>
+				<td colspan="5" style="border: white; text-align: right;">
+				<a href="productWrite.do">상품등록</a>
+				</td>
 			</tr>
 			<tr>
 				<td>번호</td>
